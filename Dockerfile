@@ -2,7 +2,7 @@ FROM node:16-alpine as builder
 
 ## Install build toolchain, install node deps and compile native add-ons
 RUN apk update
-RUN apk add --no-cache python make g++
+RUN apk add --no-cache gcc g++ git make python3
 RUN mkdir /app
 WORKDIR /app
 add package.json package-lock.json .
