@@ -41,8 +41,9 @@ const grpc = new VegaGrpc.api.trading_grpc.TradingServiceClient(
 healthcheckHttp.listen(config.event_queue.healthcheck_port)
 ;(async () => {
   await fs.mkdir(path.resolve(config.event_queue.datadir), { recursive: true })
+  await db.open()
 
-  const keypair = await crypto.ensureKey(path.resolve(config.event_queue.datadir, 'secret.key'))
+  const keypair = await crypto.ensureKey(path.resolve(config.event_queue.secretkey_path))
   logger.info(`Using public key: '${keypair.publicKey.toString('hex')}'`)
 
   const startHeight = await db.read('checkpoint') ??
