@@ -13,7 +13,7 @@ docker run \
   --volume "$PWD/data":/data:rw \
   --volume "$PWD/secret.key":/secret.key:ro \
   --volume "$PWD/config.toml":/etc/vega-ethereum-event-forwarder/config:ro \
-  vegaprotocol/ethereum-event-forwarder \
+  vegaprotocol/ethereum-event-forwarder:latest \
   -- ARGS
 ```
 
