@@ -66,3 +66,7 @@ log_level='info' # error, info, debug, trace, silent
   # Example, expose to the docker container and replace this
   grpc_endpoint = "127.0.0.1:3002"
 ```
+
+## License
+
+[MIT](LICENSE)
