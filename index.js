@@ -10,7 +10,7 @@ const crypto = require('./lib/crypto')
 const EthTail = require('./lib/eth-tail')
 const pc = require('./lib/promisify-callback')
 
-const config = require('rc-toml')('vega-ethereum')
+const config = require('rc-toml')('vega-ethereum-event-forwarder')
 const db = require('toiletdb')(path.resolve(config.event_queue.datadir, 'db.json'))
 const logger = require('pino')({
   level: process.env.LOG_LEVEL ?? config.log_level

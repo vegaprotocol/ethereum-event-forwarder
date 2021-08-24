@@ -7,8 +7,10 @@ docker run \
   --init \
   --name vega-ethereum-event-forwarder \
   --port 3001:3001 \
-  --volume \
-  --volume \
+  --volume "$PWD/data":/data:rw \
+  --volume "$PWD/secret.key":/secret.key:ro \
+  --volume "$PWD/config.toml":/etc/vega-ethereum-event-forwarder/config:ro \
+  vegaprotocol/ethereum-event-forwarder \
   -- ARGS
 ```
 
