@@ -1,18 +1,19 @@
-FROM node:16-alpine as builder
+FROM node:16-alpine AS builder
 
 ## Install build toolchain, install node deps and compile native add-ons
 RUN apk update
-RUN apk add --no-cache gcc g++ git make python3
+RUN apk add --no-cache make g++ python3 libtool autoconf automake
 RUN mkdir /app
 WORKDIR /app
-add package.json package-lock.json .
+ADD package.json package-lock.json ./
 RUN npm install --production
 
-FROM node:16-alpine as app
+FROM node:16-alpine AS app
 
-COPY --from=builder node_modules .
 RUN mkdir /app
 WORKDIR /app
-ADD index.js lib .
+COPY --from=builder /app/node_modules ./node_modules
+ADD index.js ./
+ADD lib ./lib/
 
 CMD ["node", "index.js"]
