@@ -2,6 +2,9 @@
 
 ## Usage
 
+Below is a sample `docker run` command, please replace with your local
+settings. Also note the section on configuration below, before starting
+
 ```sh
 docker run \
   --init \
@@ -33,26 +36,33 @@ log_level='info' # error, info, debug, trace, silent
 [event_queue]
   # Use '0.0.0.0' to bind to all IPv4, '::' to bind to all IPv6 and IPv4
   healthcheck_iface = '127.0.0.1'
+  # Remember to expose this port from Docker also
   healthcheck_port = 3001
 
+  # Path to keep persistent state
   datadir = '/data'
+
+  # Path to read secret key from. If this doesn't exist, one will be
+  # written here on initial start and the public key written to the logs
   secretkey_path = '/secret.key'
 
 [ethereum]
-  # Example
-  http_endpoint = "https://ropsten.infura.io/v3/d98154612ecd408ca30d9756a9add9fd"
-  #
-  confirmations = 6
+  # Example, replace before running
+  http_endpoint = "https://ropsten.infura.io/v3/API_TOKEN"
+  # Number of confirmations before forwarding an event
+  confirmations = 40
 
+  # Address and height at which to accept events from the ERC20Bridge contract
   [ethereum.erc20_bridge]
     start_height = 10817792
     address = "0x898b9F9f9Cab971d9Ceb809F93799109Abbe2D10"
 
+  # Address and height at which to accept events from the Staking contract
   [ethereum.staking]
     start_height = 10824755
     address = "0xfc9Ad8fE9E0b168999Ee7547797BC39D55d607AA"
 
 [vega]
-  # Example
+  # Example, expose to the docker container and replace this
   grpc_endpoint = "127.0.0.1:3002"
 ```
