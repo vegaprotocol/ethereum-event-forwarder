@@ -16,4 +16,4 @@ COPY --from=builder /app/node_modules ./node_modules
 ADD index.js ./
 ADD lib ./lib/
 
-CMD ["node", "index.js"]
+ENTRYPOINT ["node", "index.js"]
