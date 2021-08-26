@@ -24,6 +24,7 @@ const db = require('toiletdb')(path.resolve(config.event_queue.datadir, 'db.json
 
 logger.info('Starting')
 logger.info(`Using primary config file '${config.primaryConfig}'`)
+logger.info(`LOG_LEVEL: ${logger.level}`)
 
 let t
 const healthcheckHttp = http.createServer((req, res) => {
