@@ -11,10 +11,16 @@ const EthTail = require('./lib/eth-tail')
 const pc = require('./lib/promisify-callback')
 
 const config = require('rc-toml')('vega-ethereum-event-forwarder')
-const db = require('toiletdb')(path.resolve(config.event_queue.datadir, 'db.json'))
 const logger = require('pino')({
-  level: process.env.LOG_LEVEL ?? config.log_level
+  level: process.env.LOG_LEVEL ?? config?.log_level ?? 'trace'
 })
+
+if (config.primaryConfig == null) {
+  logger.fatal('Failed to read config file')
+  process.exit(1)
+}
+
+const db = require('toiletdb')(path.resolve(config.event_queue.datadir, 'db.json'))
 
 logger.info('Starting')
 logger.info(`Using primary config file '${config.primaryConfig}'`)
