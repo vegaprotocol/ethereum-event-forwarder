@@ -1,4 +1,8 @@
 # `ethereum-event-forwarder`
+> "this bridge allows users of Vega to deposit and withdraw Ethereum-based tokens to and from their Vega account"
+
+This repo is part of the the ERC20 bridge functionality for [Vega](https://vega.xyz) networks. [Read about the architecture in this blog post](https://medium.com/vegaprotocol/vega-erc20-bridge-331a5235efa2), or check out the [bridge smart contracts here](https://github.com/vegaprotocol/smart-contracts). Specifically, this project listens for staking or deposit events on known contract addresses, and submits them to validator nodes.
+
 
 ## Usage
 
