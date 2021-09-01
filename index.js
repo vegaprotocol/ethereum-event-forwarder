@@ -64,7 +64,7 @@ healthcheckHttp.listen(config.event_queue.healthcheck_port)
     eth: new Nanoeth(config.ethereum.http_endpoint),
     startHeight,
     confirmations: config.ethereum.confirmations,
-    stakingAddresses: config.ethereum.staking.addresses.map(function(address) {return address.toLowerCase()}),
+    stakingAddresses: config.ethereum.staking.addresses.map(function (address) { return address.toLowerCase() }),
     stakingStartHeight: config.ethereum.staking.start_height,
     erc20BridgeAddress: config.ethereum.erc20_bridge.address.toLowerCase(),
     erc20BridgeStartHeight: config.ethereum.erc20_bridge.start_height,
