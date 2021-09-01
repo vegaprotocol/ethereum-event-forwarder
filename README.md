@@ -6,7 +6,9 @@ This repo is part of the the ERC20 bridge functionality for [Vega](https://vega.
 
 ## Usage
 
-Below is a sample `docker run` command, please replace with your local
+### Docker
+We have provided a [dockerfile](./Dockerfile) in case you are planning to use Docker.
+You can run the script below after ensuring the parameters match with your local
 settings. Also note the section on configuration below, before starting
 
 ```sh
@@ -20,6 +22,24 @@ docker run \
   vegaprotocol/ethereum-event-forwarder:latest \
   -- ARGS
 ```
+
+### Native
+If you have Node.JS v16 installed, you can run it without docker:
+
+```sh
+# Create directory for the config (see Config section below for options)
+mkdir -p ~/.config/vega-ethereum-event-forwarder/
+
+# Move the configuration to the path you created
+cp ./config-example.toml ~/.config/vega-ethereum-event-forwarder/config
+
+# Edit the config, then start the server
+npm install
+npm start
+```
+
+For alternative folders and how to provide the configuration path via the
+command line, see the Config section below.
 
 ### Config
 
