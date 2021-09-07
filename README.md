@@ -1,26 +1,33 @@
 # `ethereum-event-forwarder`
-> "this bridge allows users of Vega to deposit and withdraw Ethereum-based tokens to and from their Vega account"
+> The event forwarder monitors the Ethereum blockchain for ERC20 based
+> deposits/withdrawals and ethereum based staking events
 
-This repo is part of the the ERC20 bridge functionality for [Vega](https://vega.xyz) networks. [Read about the architecture in this blog post](https://medium.com/vegaprotocol/vega-erc20-bridge-331a5235efa2), or check out the [bridge smart contracts here](https://github.com/vegaprotocol/smart-contracts). Specifically, this project listens for staking or deposit events on known contract addresses, and submits them to validator nodes.
+This repo is part of the the ERC20 bridge functionality for
+[Vega](https://vega.xyz) networks. [Read about the architecture in this blog
+post](https://medium.com/vegaprotocol/vega-erc20-bridge-331a5235efa2), or check
+out the [bridge smart contracts here](https://github.com/vegaprotocol/smart-contracts).
+Specifically, this project listens for staking or deposit events on known
+contract addresses, and submits them to validator nodes.
 
 
 ## Usage
 
 ### Docker
-We have provided a [dockerfile](./Dockerfile) in case you are planning to use Docker.
-You can run the script below after ensuring the parameters match with your local
-settings. Also note the section on configuration below, before starting
+We have provided a [dockerfile](./Dockerfile) in case you are planning to use
+Docker. You can run the script below after ensuring the parameters match with
+your local settings. Also note the section on configuration below, before starting
 
 ```sh
 docker run \
   --init \
+  --restart unless-stopped \
   --name vega-ethereum-event-forwarder \
   --port 3001:3001 \
   --volume "$PWD/data":/data:rw \
   --volume "$PWD/secret.key":/secret.key:ro \
   --volume "$PWD/config.toml":/etc/vega-ethereum-event-forwarder/config:ro \
   vegaprotocol/ethereum-event-forwarder:latest \
-  -- ARGS
+  ARGS
 ```
 
 ### Native
@@ -34,7 +41,7 @@ mkdir -p ~/.config/vega-ethereum-event-forwarder/
 cp ./config-example.toml ~/.config/vega-ethereum-event-forwarder/config
 
 # Edit the config, then start the server
-npm install
+npm install --production
 npm start
 ```
 
@@ -55,7 +62,7 @@ Sample configuration looks like below. Any of the options can be
 overriden by commandline arguments eg. `--ethereum.http_endpoint=...`
 
 ```toml
-log_level='info' # error, info, debug, trace, silent
+log_level = 'info' # error, info, debug, trace, silent
 
 [event_queue]
   # Use '0.0.0.0' to bind to all IPv4, '::' to bind to all IPv6 and IPv4
@@ -78,13 +85,17 @@ log_level='info' # error, info, debug, trace, silent
 
   # Address and height at which to accept events from the ERC20Bridge contract
   [ethereum.erc20_bridge]
+    # Use either the contract deployment height or `-1` for the current block
+    # height at initial start
     start_height = 10817792
     address = "0x898b9F9f9Cab971d9Ceb809F93799109Abbe2D10"
 
-  # Address and height at which to accept events from the Staking contract
+  # Addresses and height at which to accept events from the Staking contract
   [ethereum.staking]
+    # Use either the contract deployment height or `-1` for the current block
+    # height at initial start
     start_height = 10824755
-    address = "0xfc9Ad8fE9E0b168999Ee7547797BC39D55d607AA"
+    address = ["0xfc9Ad8fE9E0b168999Ee7547797BC39D55d607AA"]
 
 [vega]
   # Example, expose to the docker container and replace this
