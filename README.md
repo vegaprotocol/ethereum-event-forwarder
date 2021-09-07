@@ -95,7 +95,7 @@ log_level = 'info' # error, info, debug, trace, silent
     # Use either the contract deployment height or `-1` for the current block
     # height at initial start
     start_height = 10824755
-    address = ["0xfc9Ad8fE9E0b168999Ee7547797BC39D55d607AA"]
+    addresses = ["0xfc9Ad8fE9E0b168999Ee7547797BC39D55d607AA"]
 
 [vega]
   # Example, expose to the docker container and replace this
