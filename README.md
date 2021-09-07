@@ -31,7 +31,7 @@ docker run \
 ```
 
 ### Native
-If you have Node.JS v16 installed, you can run it without docker:
+If you have Node.js v16 installed, you can run it without docker:
 
 ```sh
 # Create directory for the config (see Config section below for options)
