@@ -5,6 +5,7 @@ const fs = require('fs/promises')
 const Nanoeth = require('nanoeth/http')
 const GoogleRPC = require('@grpc/grpc-js')
 const VegaGrpc = require('@vegaprotocol/vega-grpc')
+const { parse } = require('eth-helpers').utils
 
 const crypto = require('./lib/crypto')
 const EthTail = require('./lib/eth-tail')
@@ -53,21 +54,28 @@ healthcheckHttp.listen(config.event_queue.healthcheck_iface, config.event_queue.
   const keypair = await crypto.ensureKey(path.resolve(config.event_queue.secretkey_path))
   logger.info(`Using public key: '${keypair.publicKey.toString('hex')}'`)
 
+  const eth = new Nanoeth(config.ethereum.http_endpoint)
+  let erc20BridgeStartHeight = config.ethereum.erc20_bridge.start_height
+  if (erc20BridgeStartHeight < 0) erc20BridgeStartHeight = parse.number(await eth.blockNumber('latest'))
+
+  let stakingStartHeight = config.ethereum.staking.start_height
+  if (stakingStartHeight < 0) stakingStartHeight = parse.number(await eth.blockNumber('latest'))
+
   const startHeight = await db.read('checkpoint') ??
     Math.min(
-      config.ethereum.erc20_bridge.start_height,
-      config.ethereum.staking.start_height
+      erc20BridgeStartHeight,
+      stakingStartHeight
     )
 
   logger.info(`Starting at block: ${startHeight}`)
   t = new EthTail({
-    eth: new Nanoeth(config.ethereum.http_endpoint),
+    eth,
     startHeight,
     confirmations: config.ethereum.confirmations,
     stakingAddresses: config.ethereum.staking.addresses.map(function (address) { return address.toLowerCase() }),
-    stakingStartHeight: config.ethereum.staking.start_height,
+    stakingStartHeight,
     erc20BridgeAddress: config.ethereum.erc20_bridge.address.toLowerCase(),
-    erc20BridgeStartHeight: config.ethereum.erc20_bridge.start_height,
+    erc20BridgeStartHeight,
     db,
     grpc,
     keypair,
