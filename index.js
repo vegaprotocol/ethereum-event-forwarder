@@ -45,7 +45,7 @@ const grpc = new VegaGrpc.api.trading_grpc.TradingServiceClient(
   GoogleRPC.credentials.createInsecure()
 )
 
-healthcheckHttp.listen(config.event_queue.healthcheck_port)
+healthcheckHttp.listen(config.event_queue.healthcheck_iface, config.event_queue.healthcheck_port)
 ;(async () => {
   await fs.mkdir(path.resolve(config.event_queue.datadir), { recursive: true })
   await db.open()
