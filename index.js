@@ -56,10 +56,10 @@ healthcheckHttp.listen(config.event_queue.healthcheck_port, config.event_queue.h
 
   const eth = new Nanoeth(config.ethereum.http_endpoint)
   let erc20BridgeStartHeight = config.ethereum.erc20_bridge.start_height
-  if (erc20BridgeStartHeight < 0) erc20BridgeStartHeight = parse.number(await eth.blockNumber('latest'))
+  if (erc20BridgeStartHeight < 0) erc20BridgeStartHeight = parse.number(await latestBlockNumber(eth))
 
   let stakingStartHeight = config.ethereum.staking.start_height
-  if (stakingStartHeight < 0) stakingStartHeight = parse.number(await eth.blockNumber('latest'))
+  if (stakingStartHeight < 0) stakingStartHeight = parse.number(await latestBlockNumber(eth))
 
   const startHeight = await db.read('checkpoint') ??
     Math.min(
@@ -92,5 +92,17 @@ healthcheckHttp.listen(config.event_queue.healthcheck_port, config.event_queue.h
     logger.info('Stopping')
     await t.stop()
     await pc(cb => healthcheckHttp.close(cb))
+  }
+
+  async function latestBlockNumber (eth) {
+    let retries = 0
+    while (true) {
+      retries++
+      try {
+        return await eth.blockNumber('latest')
+      } catch {
+        if (retries % 5 === 0) logger.warn(`Retried eth_blockNumber('latest') ${retries} times`)
+      }
+    }
   }
 })()
