@@ -4,7 +4,7 @@ const fs = require('fs/promises')
 
 const Nanoeth = require('nanoeth/http')
 const GoogleRPC = require('@grpc/grpc-js')
-const VegaGrpc = require('@vegaprotocol/vega-grpc')
+const { vega } = require('@vegaprotocol/vega-grpc')
 const { parse } = require('eth-helpers').utils
 
 const crypto = require('./lib/crypto')
@@ -41,7 +41,7 @@ const healthcheckHttp = http.createServer((req, res) => {
 
 logger.info(`Connecting to Vega GRPC on '${config.vega.grpc_endpoint}'`)
 /* eslint-disable-next-line new-cap */
-const grpc = new VegaGrpc.api.trading_grpc.TradingServiceClient(
+const grpc = new vega.api.v1.core_grpc.CoreServiceClient(
   config.vega.grpc_endpoint,
   GoogleRPC.credentials.createInsecure()
 )
