@@ -20,7 +20,7 @@
   "homepage": "https://github.com/vegaprotocol/ethereum-event-forwarder#readme",
   "dependencies": {
     "@grpc/grpc-js": "^1.3.7",
-    "@vegaprotocol/vega-grpc": "^0.42.0-pre4",
+    "@vegaprotocol/vega-grpc": "^0.44.0-pre1",
     "eth-helpers": "^1.3.1",
     "eth-serde": "^0.0.14",
     "inverted-promise": "^1.0.1",
