@@ -1,6 +1,6 @@
 {
   "name": "ethereum-event-forwarder",
-  "version": "0.0.0",
+  "version": "0.44.0",
   "description": "The event forwarder monitors the Ethereum blockchain for ERC20 based deposits/withdrawals and ethereum based staking events",
   "main": "index.js",
   "scripts": {
