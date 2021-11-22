@@ -80,22 +80,18 @@ log_level = 'info' # error, info, debug, trace, silent
 [ethereum]
   # Example, replace before running
   http_endpoint = "https://ropsten.infura.io/v3/API_TOKEN"
-  # Number of confirmations before forwarding an event
-  confirmations = 40
 
-  # Address and height at which to accept events from the ERC20Bridge contract
+  # Height at which to accept events from the ERC20Bridge contract
   [ethereum.erc20_bridge]
     # Use either the contract deployment height or `-1` for the current block
     # height at initial start
     start_height = 10817792
-    address = "0x898b9F9f9Cab971d9Ceb809F93799109Abbe2D10"
 
-  # Addresses and height at which to accept events from the Staking contract
+  # Height at which to accept events from the Staking contract
   [ethereum.staking]
     # Use either the contract deployment height or `-1` for the current block
     # height at initial start
     start_height = 10824755
-    addresses = ["0xfc9Ad8fE9E0b168999Ee7547797BC39D55d607AA"]
 
 [vega]
   # Example, expose to the docker container and replace this
