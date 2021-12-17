@@ -2,7 +2,7 @@ const http = require('http')
 const path = require('path')
 const fs = require('fs/promises')
 
-const Nanoeth = require('./lib/nanoeth')
+const Nanoeth = require('./lib/nanoeth/http')
 const GoogleRPC = require('@grpc/grpc-js')
 const { vega } = require('@vegaprotocol/vega-grpc')
 const { parse } = require('eth-helpers').utils
