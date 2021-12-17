@@ -26,11 +26,11 @@
     "inverted-promise": "^1.0.1",
     "nanoassert": "^2.0.0",
     "nanoeth": "^2.6.1",
-    "pino": "^6.13.1",
+    "pino": "^7.5.1",
     "rc-toml": "^1.0.0",
     "set-interrupt": "^1.0.2",
     "sha3-wasm": "^1.0.0",
-    "sodium-native": "^3.2.1",
+    "sodium-native": "^3.3.0",
     "toiletdb": "^2.0.0",
     "upsert-map": "^1.0.1"
   },
