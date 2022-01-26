@@ -2,6 +2,11 @@
 > The event forwarder monitors the Ethereum blockchain for ERC20 based
 > deposits/withdrawals and ethereum based staking events
 
+
+## Important
+**This project is now deprecated as this mechanism is now part of the vega core node.**
+
+## Description
 This repo is part of the the ERC20 bridge functionality for
 [Vega](https://vega.xyz) networks. [Read about the architecture in this blog
 post](https://medium.com/vegaprotocol/vega-erc20-bridge-331a5235efa2), or check
